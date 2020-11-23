@@ -10,6 +10,14 @@ const Container = styled.div`
   background-color: ${(props) => (props.isDragging ? 'lightgreen' : 'white')};
 `;
 
+const Handle = styled.div`
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: orange;
+  border-radius: 4px;
+`;
+
 export default class Task extends React.Component {
   render() {
     return (
@@ -18,11 +26,11 @@ export default class Task extends React.Component {
           <Container
             {...provided.draggableProps}
             highlight_line
-            {...provided.dragHandleProps}
             end_highlight_line
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
           >
+            <Handle {...provided.dragHandleProps} />
             {this.props.task.content}
           </Container>
         )}

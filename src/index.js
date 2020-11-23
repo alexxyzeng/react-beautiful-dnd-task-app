@@ -8,8 +8,16 @@ import Column from './column';
 class App extends React.Component {
   state = initialData;
 
+  onDragStart = () => {
+    document.body.style.color = 'orange';
+    document.body.style.transition = 'background-color 0.2s ease';
+  };
+
+  onDragUpdate = () => {};
+
   onDragEnd = (result) => {
-    // TODO: reorder our column
+    document.body.style.color = 'inherit';
+
     const { destination, source, draggableId } = result;
     if (!destination) {
       return;
@@ -40,7 +48,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
+      <DragDropContext
+        onDragStart={this.onDragStart}
+        onDragEnd={this.onDragEnd}
+      >
         {this.state.columnOrder.map((columnId) => {
           const column = this.state.columns[columnId];
           const tasks = column.taskIds.map(
